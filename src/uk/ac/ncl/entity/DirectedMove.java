@@ -15,6 +15,7 @@ public class DirectedMove {
     public DirectedMove(Cell cell, int[] direction) {
 
         this.direction = direction;
+        this.cell = cell;
     }
 
     public Cell getCell() {
