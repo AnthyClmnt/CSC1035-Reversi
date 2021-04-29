@@ -36,10 +36,9 @@ public class MoveChecker {
         ArrayList<Cell> potentialMoves = findPotentialMoves(cellStatus);
         int max_score = 0;
         Cell opponentsMove = null;
-        for (int i = 0; i <= potentialMoves.size(); i++){
-            if (potentialMoves.get(i).getMove().getScore() > max_score){
-                opponentsMove = potentialMoves.get(i);
-
+        for (Cell potentialMove : potentialMoves) {
+            if (potentialMove.getMove().getScore() >= max_score) {
+                opponentsMove = potentialMove;
             }
         }
         return opponentsMove;
@@ -58,8 +57,17 @@ public class MoveChecker {
             int d_row = cell.getRow();
             int d_col = cell.getColumn();
 
+            /*System.out.println(dir[0]+ ", " + dir[1]);
+            System.out.println(d_row);
+            System.out.println(d_col);
+            System.out.println(move.getCell().getRow());
+            System.out.println(move.getCell().getColumn());
+
+             */
+
             while ( d_col != move.getCell().getColumn() || d_row != move.getCell().getRow()) {
-                this.cells[d_row][d_col].setValue(colour);
+                System.out.println("Row: " + d_row + " Column: " + d_col);
+                cells[d_col][d_row].setValue(colour);
                 d_row += dir[0];
                 d_col += dir[1];
             }
