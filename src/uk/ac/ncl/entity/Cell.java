@@ -72,7 +72,7 @@ public class Cell {
         this.value = value;
         switch (value){
             case EMPTY:
-                this.jButton.setBackground(new Color(820000));
+                this.jButton.setBackground(new Color(0x0C8320));
                 break;
             case LIGHT:
                 this.jButton.setBackground(Color.WHITE);
@@ -116,24 +116,31 @@ public class Cell {
         boolean isLegal = false;
         int score = 0;
         ArrayList<DirectedMove> moves = new ArrayList<DirectedMove>();
-        int[][] DIRS = {{-1,-1}, {-1,0}, {-1,1},  {0,-1}, {1,1}, {1,0}, {1,-1}};
+        int[][] DIRS = {{-1,-1}, {-1,0}, {-1,1}, {0,1}, {0,-1}, {1,1}, {1,0}, {1,-1}};
 
         for (int[] dir : DIRS){
             int temp_score = 0;
             int d_row = this.getRow() + dir[0];
-            int d_col = this.getColumn() ;
+            int d_col = this.getColumn() + dir[1];
             if (0 <= d_col &&  d_col < BOARD_SIZE && 0 <=  d_row && d_row < BOARD_SIZE
                     && cells[d_row][d_col].getValue() != CellStatus.EMPTY
-                    && cells[d_row][d_col].getValue() != colour) {
+                    && cells[d_row][d_col].getValue() == opponent) {
                 while (true) {
                     d_row += dir[0];
                     d_col += dir[1];
                     temp_score += 1;
                     if (0 <= d_col && d_col < BOARD_SIZE && 0 <= d_row && d_row < BOARD_SIZE
                             && cells[d_row][d_col].getValue() != CellStatus.EMPTY) {
-                        if (cells[d_row][d_col].getValue() == opponent) {
+                        if (cells[d_row][d_col].getValue() == colour) {
                             isLegal = true;
                             score = temp_score;
+
+                            /*System.out.println("Square: (" + (this.getRow()) +", " + (this.getColumn()) +")");
+                            System.out.println("D ROW: " + (d_row));
+                            System.out.println("D COL: " + (d_col));
+                            System.out.println();
+
+                             */
                             moves.add(new DirectedMove(cells[d_row][d_col], dir));
                         }
                     } else {
@@ -142,7 +149,6 @@ public class Cell {
                 }
             }
         }
-
 
         Move move = new Move(moves, score);
         this.setMove(move);
