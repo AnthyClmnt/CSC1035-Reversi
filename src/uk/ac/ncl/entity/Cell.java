@@ -112,7 +112,14 @@ public class Cell {
      * @return whether move is possible for the piece. If this is the case, then possible moves are stored in Piece.
      */
     public boolean isLegal(CellStatus colour, Cell[][] cells){
-        CellStatus opponent = colour == CellStatus.LIGHT ? CellStatus.DARK : CellStatus.LIGHT;
+        CellStatus opponent = null;
+        if (colour == CellStatus.DARK) {
+            opponent = CellStatus.LIGHT;
+        }
+        if (colour == CellStatus.LIGHT) {
+            opponent = CellStatus.DARK;
+        }
+
         boolean isLegal = false;
         int score = 0;
         ArrayList<DirectedMove> moves = new ArrayList<DirectedMove>();
@@ -135,13 +142,24 @@ public class Cell {
                             isLegal = true;
                             score = temp_score;
 
-                            /*System.out.println("Square: (" + (this.getRow()) +", " + (this.getColumn()) +")");
+                            /*
+                            System.out.println("Square: (" + (this.getRow()) +", " + (this.getColumn()) +")");
                             System.out.println("D ROW: " + (d_row));
                             System.out.println("D COL: " + (d_col));
                             System.out.println();
 
                              */
-                            moves.add(new DirectedMove(cells[d_row][d_col], dir));
+
+                            moves.add(new DirectedMove(cells[d_col][d_row], dir));
+
+                            /*
+                            System.out.println("----- moves ------");
+                            System.out.println(moves.get(0).getCell().getColumn() + ", " + moves.get(0).getCell().getRow());
+                            System.out.println((Arrays.toString(moves.get(0).getDirection())));
+                            System.out.println();
+
+                             */
+
                         }
                     } else {
                         break;

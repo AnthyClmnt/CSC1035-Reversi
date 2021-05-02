@@ -51,13 +51,21 @@ public class MoveChecker {
      * @param colour - colour of the current player
      */
     public void flipPieces(Cell cell, CellStatus colour) {
+        System.out.println("---------------------------------------------------------------------------");
+        System.out.println(cell.getRow());
+        System.out.println(cell.getColumn());
+
+
         cell.colourTemp(colour == OPPONENTS_CELL_STATUS ? OPPONENTS_COLOUR : PLAYERS_COLOUR, false);
+
         for (DirectedMove move : cell.getMove().getMoves()) {
+            System.out.println("jksedhsdujvlkhvslhjlkhvjdl");
             int[] dir = move.getDirection();
             int d_row = cell.getRow();
             int d_col = cell.getColumn();
 
-            /*System.out.println(dir[0]+ ", " + dir[1]);
+            /*
+            System.out.println(dir[0]+ ", " + dir[1]);
             System.out.println(d_row);
             System.out.println(d_col);
             System.out.println(move.getCell().getRow());
@@ -65,8 +73,10 @@ public class MoveChecker {
 
              */
 
+
+
             while ( d_col != move.getCell().getColumn() || d_row != move.getCell().getRow()) {
-                System.out.println("Row: " + d_row + " Column: " + d_col);
+                //System.out.println("Row: " + d_row + " Column: " + d_col);
                 cells[d_col][d_row].setValue(colour);
                 d_row += dir[0];
                 d_col += dir[1];
